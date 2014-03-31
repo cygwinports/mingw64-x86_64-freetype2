@@ -2,8 +2,8 @@ CROSS_HOST="x86_64-w64-mingw32"
 inherit cross
 
 NAME="mingw64-x86_64-freetype2"
-VERSION=2.4.12
-RELEASE=2
+VERSION=2.5.3
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="TrueType font engine for Win64 toolchain"
 DESCRIPTION="This package does NOT contain cygwin binaries.  Instead, it
@@ -13,7 +13,11 @@ mingw64-x86_64-gcc cross compiler, and installs into the
 HOMEPAGE="http://freetype.sourceforge.net/"
 SRC_URI="mirror://sourceforge/freetype/freetype-${VERSION}.tar.bz2"
 SRC_DIR="freetype-${VERSION}"
-PATCH_URI="mirror://portage/media-libs/freetype/files/freetype-2.3.2-enable-valid.patch"
+PATCH_URI="
+	mirror://portage/media-libs/freetype/files/freetype-2.3.2-enable-valid.patch
+	mirror://portage/media-libs/freetype/files/freetype-2.4.12-pkgconfig.patch
+	mirror://portage/media-libs/freetype/files/freetype-2.5.3-freetype-config-libs.patch
+"
 
 DIFF_EXCLUDES='aclocal.m4 configure *.html'
 
@@ -22,8 +26,8 @@ src_compile() {
 	NO_AUTOHEADER=1 cygautoreconf
 
 	cd ${B}
-	CFLAGS+=" -fno-strict-aliasing"
-	cygconf --with-zlib
+	# harfbuzz: new in 2.5.3, circular dep
+	cygconf --with-zlib --with-bzip2 --with-png --without-harfbuzz
 	cygmake all
 }
 
