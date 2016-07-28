@@ -2,7 +2,7 @@ CROSS_HOST="x86_64-w64-mingw32"
 inherit cross
 
 NAME="mingw64-x86_64-freetype2"
-VERSION=2.5.5
+VERSION=2.6.5
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="TrueType font engine for Win64 toolchain"
