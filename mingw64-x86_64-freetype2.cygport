@@ -2,7 +2,7 @@ CROSS_HOST="x86_64-w64-mingw32"
 inherit cross
 
 NAME="mingw64-x86_64-freetype2"
-VERSION=2.6.5
+VERSION=2.8.1
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="TrueType font engine for Win64 toolchain"
@@ -14,8 +14,9 @@ HOMEPAGE="http://freetype.sourceforge.net/"
 SRC_URI="mirror://sourceforge/freetype/freetype-${VERSION}.tar.bz2"
 SRC_DIR="freetype-${VERSION}"
 PATCH_URI="
-	http://pkgs.fedoraproject.org/cgit/freetype.git/plain/freetype-2.2.1-enable-valid.patch
-	http://pkgs.fedoraproject.org/cgit/freetype.git/plain/freetype-2.5.3-freetype-config-prefix.patch
+	http://src.fedoraproject.org/cgit/rpms/freetype.git/plain/freetype-2.2.1-enable-valid.patch
+	http://src.fedoraproject.org/cgit/rpms/freetype.git/plain/freetype-2.6.5-libtool.patch
+	http://src.fedoraproject.org/cgit/rpms/freetype.git/plain/freetype-2.8-getvariation.patch
 "
 
 DIFF_EXCLUDES='aclocal.m4 configure *.html'
@@ -29,5 +30,3 @@ src_compile() {
 	cygconf --with-zlib --with-bzip2 --with-png --without-harfbuzz
 	cygmake all
 }
-
-KEEP_LA_FILES="none"
